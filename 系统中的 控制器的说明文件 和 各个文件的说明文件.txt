@@ -1,0 +1,31 @@
+
+controller / Text.php   继承的是 core / MY_Controller.php   在使用的时候有一个报错 应该是配置的问题
+
+
+
+
+
+controller / Loing.php     登陆导航界面
+
+
+
+
+helprs / base_helper.php   要想使用这个文件就需要在配置文件中配置这个文件的初始化信息
+
+    在 config / autoload.php 文件中配置信息：$autoload['helper'] = array('base');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
