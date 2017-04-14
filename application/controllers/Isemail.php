@@ -3,38 +3,35 @@
  * Created by PhpStorm.
  * User: leon
  * Date: 2017/4/14
- * Time: 14:15
+ * Time: 16:54
  */
 
-class Isphone extends CI_Controller{
+class Isemail extends CI_Controller{
 
     public function __construct(){
         parent::__construct();
     }
 
+    /**
+     * 邮箱验证界面
+     */
     public function index(){
-
-        $this->load->view('front/isphone');
+        $this->load->view('front/isemail');
     }
-
 
     public function verification(){
 
-        $phone_array = $this->input->post();
+        $email_array = $this->input->post();
+        $email = $email_array['email'];
+        $bool = is_email($email);
 
-        $phone = $phone_array['phone'];
-
-        $bool = is_phone($phone);
-
-        $data = [
+        $data =[
             'is'=>$bool,
-            'nr'=>$phone
+            'nr'=>$email
         ];
 
         echo json_encode($data);
         exit;
-
-
     }
 
 }

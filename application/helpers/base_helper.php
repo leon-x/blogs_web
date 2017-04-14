@@ -40,7 +40,38 @@ if(!function_exists('is_email')){
     }
 }
 
+if(!function_exists('send_mail')){
+    function send_mail($to,$title,$body,$bccs=array(),$attach='')
+    {
 
+        $url = 'http://sendcloud.sohu.com/webapi/mail.send.json';
+
+        $param = array(
+            'api_user' => 'ayonggege_xn',     # 使用api_user和api_key进行验证
+            'api_key' => 'qABg3tbVfWLMvS3x',
+            'from' => 'info@tps138.com',      # 发信人，用正确邮件地址替代
+            'fromname' => 'TPS',
+            'to' => $to,                      # 收件人地址, 用正确邮件地址替代, 多个地址用';'分隔
+            'subject' => $title,
+            'html' => $body,
+            'resp_email_id' => 'true'
+        );
+
+
+        $data = http_build_query($param);
+
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => 'Content-Type: application/x-www-form-urlencoded',
+                'content' => $data
+            ));
+        $context  = stream_context_create($options);
+        $result = file_get_contents($url, FILE_TEXT, $context);
+
+        return $result;
+    }
+}
 
 
 
