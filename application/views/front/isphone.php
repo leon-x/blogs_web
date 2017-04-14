@@ -8,12 +8,8 @@
 <!--<script src="../themes/js/aaa.js"></script>-->
 <script src="../themes/js/jquery-1.11.1.js"></script>
 
-
-
-
-
 请输入手机号：
-<input id="phone" name="phone" type="text">
+<input id="phone" name="phone" type="text" maxlength="11" autocomplete="off">
 <input id="qd" type="button" value="验证">
 
 <h3 id="nr"></h3><!-- 显示错误信息 -->
@@ -30,10 +26,16 @@
                 data:{phone:phone},
                 dataType:'json',
                 success:function(data){
+
+                    var phone_nr = data.nr;
+
+                    var phone_true  = '手机号'+phone_nr+'格式正确。';
+                    var phone_fales = '手机号'+phone_nr+'格式不正确';
+
                     if(data.is){
-                        $("#nr").text('手机号正确');
+                        $("#nr").text(phone_true);
                     }else{
-                        $("#nr").text('手机号不是可使用的号码');
+                        $("#nr").text(phone_fales);
                     }
                 }
             })

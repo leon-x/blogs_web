@@ -27,7 +27,8 @@ class Isphone extends CI_Controller{
         $bool = is_phone($phone);
 
         $data = [
-            'is'=>$bool
+            'is'=>$bool,
+            'nr'=>$phone
         ];
 
         echo json_encode($data);
