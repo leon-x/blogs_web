@@ -16,21 +16,8 @@
 <table width="600" border="0">
     <tr>
         <td>
-            <a href="http://www.tps138.com/">
-                <img src="http://www.tps138.com/themes/mall/img/tps.png" />
-            </a>
-            <p>
-            </p>
-        </td>
-    </tr>
-    <tr>
-        <td background="http://www.tps138.com/img/line.png"></td>
-    </tr>
-    <tr>
-        <td>
-            <h5><?php echo $dear?><?php echo $email ?>,</h5>
             <p><?php echo $content ?></p>
-            <p><?php echo $email_end ?></p><br />
+            <br />
         </td>
     </tr>
 </table>
