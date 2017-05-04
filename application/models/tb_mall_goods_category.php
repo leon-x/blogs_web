@@ -57,5 +57,34 @@ class tb_mall_goods_category extends CI_Model{
         $query = $this->db->get()->result_array();
         return $query;
     }
+
+
+    /**
+     * 获取指定国家下的分类信息
+     * @return [type] [description]
+     */
+    public function get_area_content_all($data){
+        $this->db->from('mall_goods_category');   //访问的数据表
+        $this->db->where('language_id',$data['language_id']);      //语言区域
+        $this->db->where('status',1);             //状态
+        $query = $this->db->get()->result_array();
+        return $query;
+    }
+
+
+
+
+    /**
+     * 获取指定ID的分类信息
+     */
+    public function get_id_content($id){
+        $this->db->from('mall_goods_category');
+        $cate_id = $id;
+        $this->db->where("cate_id IN($cate_id)", null, false);
+        //$this->db->where_in("cate_id",trim($id,"'"));
+        $query = $this->db->get()->result_array();
+        //echo $this->db->last_query();
+        return $query;
+    }
     
 }
