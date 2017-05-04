@@ -26,12 +26,9 @@
                 data:{phone:phone},
                 dataType:'json',
                 success:function(data){
-
                     var phone_nr = data.nr;
-
                     var phone_true  = '手机号'+phone_nr+'格式正确。';
                     var phone_fales = '手机号'+phone_nr+'格式不正确';
-
                     if(data.is){
                         $("#nr").text(phone_true);
                     }else{
@@ -42,3 +39,5 @@
         }
     })
 </script>
+
+

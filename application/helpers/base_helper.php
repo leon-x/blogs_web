@@ -5,7 +5,6 @@
  * Date: 2017/4/14
  * Time: 11:47
  */
-
 if(!defined('BASEPATH')){
     exit('No direct script access allowed');
 }
@@ -39,7 +38,6 @@ if(!function_exists('is_email')){
         return $bool;
     }
 }
-
 
 /**
  * 第一版发送邮件方法 --- 原始方法
@@ -94,17 +92,93 @@ if(!function_exists('send_mail_leon')){
     }
 }
 
+/** 
+ *  获取父类下所有底层子类id string 
+ *
+ *  $catKeyArr 全部的数据内容数组
+ *  Array(
+        [0] => Array(
+            [cate_id] => 20
+            [cate_sn] => u9f0KhcZci
+            [cate_name] => 母婴用品
+            [cate_desc] => 
+            [cate_img] => upload/cate_img/20160921165846_thumb.png
+            [parent_id] => 0
+            [meta_title] => 母婴用品
+            [meta_keywords] => 
+            [meta_desc] => 
+            [language_id] => 2
+            [sort_order] => 99
+            [status] => 1
+            [is_doba_cate] => 0
+        )
+        [1] => Array(
+            [cate_id] => 23
+            [cate_sn] => LaiaZBMFLx
+            [cate_name] => 婴幼儿奶粉
+            [cate_desc] => 
+            [cate_img] => 
+            [parent_id] => 20
+            [meta_title] => 婴幼儿奶粉
+            [meta_keywords] => 
+            [meta_desc] => 
+            [language_id] => 2
+            [sort_order] => 99
+            [status] => 1
+            [is_doba_cate] => 0
+        )
+    )
+
+    $cat_id  父类的 cate_id
+
+    return 
+        返回的是 不包含当前判断的父类ID的   父类下的全部的子类字符串
+ */
+if(!function_exists('getChildArr')){
+    function getChildArr($catKeyArr,$cat_id){
+        $cat_idArr = '';
+        foreach($catKeyArr as $kk => $vv){
+            if($vv['parent_id'] == $cat_id){
+                $cat_idArr .= $vv['cate_id'].','.getChildArr($catKeyArr,$vv['cate_id']);
+            }
+        }
+        return $cat_idArr;
+    }
+}
+
+/**
+ * 获取产品分类的最高分类
+ * @return array
+ */
+if(!function_exists('getParentArr')){
+    function getParentArr($arr, $pid) {
+        $ret = [];
+        foreach ($arr as  $v) {
+            if ($v['cate_id'] == $pid) {
+                $ret = $v;
+                if ($v['parent_id'] == 0) {
+                    break;
+                }
+                $ret = getParentArr($arr, $v['parent_id']);
+            }
+        }
+        return $ret;
+    }
+}
 
 
-
-
-
-
-
-
-
-
-
+/**
+ * 获取系统的根路径
+ */
+if (!function_exists('get_public_domain')) {
+    function get_public_domain() {
+        $host = filter_input(INPUT_SERVER, 'HTTP_HOST');
+        $host = preg_replace('/:\d+/',"",$host);
+        $arrHost = explode('.', $host);
+        $arrHostCount = count($arrHost);
+        return $arrHostCount > 1 ? $arrHost[$arrHostCount - 2] . '.' . $arrHost[$arrHostCount - 1] : '';
+    }
+}
 
 
 
@@ -163,16 +237,16 @@ if (!function_exists('get_domain_prefix')) {
     }
 }
 
-if (!function_exists('get_public_domain')) {
-    function get_public_domain() {
-        $host = filter_input(INPUT_SERVER, 'HTTP_HOST');
-        $host = preg_replace('/:\d+/',"",$host);
-        $arrHost = explode('.', $host);
-        $arrHostCount = count($arrHost);
-        return $arrHostCount > 1 ? $arrHost[$arrHostCount - 2] . '.' . $arrHost[$arrHostCount - 1] : '';
-    }
+// if (!function_exists('get_public_domain')) {
+//     function get_public_domain() {
+//         $host = filter_input(INPUT_SERVER, 'HTTP_HOST');
+//         $host = preg_replace('/:\d+/',"",$host);
+//         $arrHost = explode('.', $host);
+//         $arrHostCount = count($arrHost);
+//         return $arrHostCount > 1 ? $arrHost[$arrHostCount - 2] . '.' . $arrHost[$arrHostCount - 1] : '';
+//     }
 
-}
+// }
 
 if (!function_exists('get_public_domain_port')) {
     function get_public_domain_port() {

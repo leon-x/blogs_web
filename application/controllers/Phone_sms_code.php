@@ -32,7 +32,6 @@ class Phone_sms_code extends CI_controller{
             $phone_send_data[$key]['sms_send_time'] = $value_data['sms_send_time'];          //短信发送时间
         }
         //echo "手机短信信息：";
-        //print_r($phone_send_data);exit;
         echo json_encode($phone_send_data);
         exit;
     }
