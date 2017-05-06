@@ -31,6 +31,10 @@
         <tr>
             <td align='center'><a href="Huoququanbyzilei">获取父类中的全部子类</a></td>
         </tr>
+
+        <tr>
+            <td align='center'><a href="Cookie_use">Cookie的输入输出</a></td>
+        </tr>
     </table>
 
 
