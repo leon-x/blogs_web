@@ -237,12 +237,60 @@ if(!function_exists('local_log_file')){
             //$file_type="FILE_APPEND";
             file_put_contents($path,$message,FILE_APPEND);//在文件中追加数据
         }
-
-
     }
 }
 
+/**
+ * 本地日志文件 --- leon
+ * $log_content        日志内容 （可以是数组和字符串）
+ * $file_name          文件名字 （默认是 tps_log_时间.log） 可以自己指定名称    文件名的前缀统一是 tps_log_
+ * $folder_name        文件夹名字（默认是当天的时间）  可以自己指定文件的名字
+ * $log_type          日志内容前的类型表示    notice, error.. etc, 可自定义
+ * $type              文件存储类型 默认是追加数据      false 像文件夹中追加数据    true 新建文件夹
+ */
+if(!function_exists('local_log_file_ceshi')){
+    function local_log_file_ceshi($log_content,$file_name=null,$folder_name=null,$log_type="notice",$type=false){
 
+        $commonality_path = "/tmp/TPS_logs_file/";//日志公共地址
+
+        //文件夹地址
+        if(empty($folder_name)){
+            $file_path = $commonality_path.date('Y-m-d')."/"; //默认   文件夹地址
+        }else{
+            $file_path = $commonality_path.$folder_name."/";  //自定义 文件夹地址
+        }
+        //文件夹不存在 创建
+        if (!file_exists($file_path)) {
+            mkdirs($file_path, 777);
+        }
+
+        //默认 文件名字
+        if(empty($file_name)){
+            $file_name = 'tps_log_'.date('H').'.log';
+        }else{
+            $file_name = 'tps_log_'.$file_name.'.log';
+        }
+
+        //内容文件
+        $message  = '[ '.$log_type.' ] '.date('Y-m-d H:i:s').':'."\n";   //内容类型  日期  时间
+        if (is_array($log_content)) {
+            $message .= var_export($log_content, true)."\n"."\n";        //数组内容
+        } else {
+            $message .= $log_content."\n"."\n";                          //字符串内容
+        }
+
+        $path = $file_path.$file_name;//文件地址和名称
+
+        if($type){
+            //$file_type="FILE_APPEND";
+            file_put_contents($path,$message);
+        }else{
+            //$file_type="FILE_APPEND";
+            file_put_contents($path,$message,FILE_APPEND);//在文件中追加数据
+        }
+
+    }
+}
 
 
 

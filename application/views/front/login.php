@@ -35,6 +35,9 @@
         <tr>
             <td align='center'><a href="Cookie_use">Cookie的输入输出</a></td>
         </tr>
+        <tr>
+            <td align='center'><a href="Mouse_right_click">禁止网站上鼠标的右键</a></td>
+        </tr>
     </table>
 
 
